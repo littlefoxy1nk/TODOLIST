@@ -9,9 +9,12 @@ function TodoList() {
   const [update, setUpdate] = useState(null); // Task being edited
   const [editTask, setEditTask] = useState(''); // Edited task text
 
+  // API URL
+  const API_URL = "https://675c4820fe09df667f6351e2.mockapi.io/api/todo/todos";
+
   // Fetch tasks from the API
   useEffect(() => {
-    fetch('http://localhost:3000/todos')
+    fetch(API_URL)
       .then((response) => response.json())
       .then((data) => setTodos(data))
       .catch((error) => console.error('Erreur lors de la récupération des tâches', error));
@@ -23,7 +26,7 @@ function TodoList() {
 
     const todo = { task: newTask, completed: false };
 
-    fetch('http://localhost:3000/todos', {
+    fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(todo),
@@ -32,20 +35,20 @@ function TodoList() {
       .then((data) => {
         setTodos([...todos, data]);
         setNewTask('');
-      });
+      })
+      .catch((error) => console.error('Erreur lors de l\'ajout de la tâche', error));
   };
 
   // Delete a task
   const deleteTask = (id) => {
-    fetch(`http://localhost:3000/todos/${id}`, {
+    fetch(`${API_URL}/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
       })
-      .catch((error) => console.error('Error deleting task:', error));
+      .catch((error) => console.error('Erreur lors de la suppression de la tâche', error));
   };
-  
 
   // Enable edit mode for a task
   const enableEditMode = (id, currentTask) => {
@@ -57,17 +60,20 @@ function TodoList() {
   const updateTask = (id) => {
     if (editTask.trim() === '') return; // Prevent updating to an empty task
 
-    fetch(`http://localhost:3000/todos/${id}`, {
-      method: 'PATCH',
+    fetch(`${API_URL}/${id}`, {
+      method: 'PUT', // PATCH peut aussi être utilisé si tu veux mettre à jour partiellement
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ task: editTask }),
-    }).then(() => {
-      setTodos(todos.map((todo) =>
-        todo.id === id ? { ...todo, task: editTask } : todo
-      ));
-      setUpdate(null);
-      setEditTask('');
-    });
+    })
+      .then((response) => response.json())
+      .then((updatedTodo) => {
+        setTodos(todos.map((todo) =>
+          todo.id === id ? updatedTodo : todo
+        ));
+        setUpdate(null);
+        setEditTask('');
+      })
+      .catch((error) => console.error('Erreur lors de la mise à jour de la tâche', error));
   };
 
   // Handle input change for new tasks
@@ -93,33 +99,31 @@ function TodoList() {
       <button className='add' onClick={addTask}>ADD</button>
 
       {todos.map((todo) => (
-  <div key={todo.id} className="todo">
-    {update === todo.id ? (
-      <>
-        <input 
-          type="text" 
-          value={editTask} 
-          onChange={handleEditTaskChange}
-        />
-        <button onClick={() => updateTask(todo.id)}>Enregistrer</button>
-      </>
-    ) : (
-      <>
-        <div className="todo-task">
-          <h3>{todo.task}</h3>
+        <div key={todo.id} className="todo">
+          {update === todo.id ? (
+            <>
+              <input 
+                type="text" 
+                value={editTask} 
+                onChange={handleEditTaskChange}
+              />
+              <button onClick={() => updateTask(todo.id)}>Enregistrer</button>
+            </>
+          ) : (
+            <>
+              <div className="todo-task">
+                <h3>{todo.task}</h3>
+              </div>
+              <div className="todo-actions">
+                <button className="edit" onClick={() => enableEditMode(todo.id, todo.task)}>Modifier</button>
+                <button className="delete" onClick={() => deleteTask(todo.id)}>X</button>
+              </div>
+            </>
+          )}
         </div>
-        <div className="todo-actions">
-          <button className="edit" onClick={() => enableEditMode(todo.id, todo.task)}>Modifier</button>
-          <button className="delete" onClick={() => deleteTask(todo.id)}>X</button>
-        </div>
-      </>
-    )}
-  </div>
-))}
-
+      ))}
     </>
   );
 }
 
 export default TodoList;
-
