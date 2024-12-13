@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "2",
+      "task": "épinards",
+      "completed": true
+    },
+    {
+      "id": "4e67",
+      "task": "pain",
+      "completed": false
+    },
+    {
+      "id": "31ac",
+      "task": "chips",
+      "completed": false
+    }
+  ]
+}

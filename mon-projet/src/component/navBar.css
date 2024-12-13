@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+.container-fluid {
+    background-color:#f7f6f253 ;
+}
+.navbar-brand{
+    font-family: "Host Grotesk", serif;
+    font-weight: 800;
+    color: #000200;
+}
+.form-control, .btn-outline-success{
+    background-color: #000200;
+    color: #f7f6f23f;
+}
+.form-control
+.form-control, placeholder {
+    color:#f7f6f2;
+}
+.nav-link .active {
+    color:#000200;
+    font-weight: 800;
+}

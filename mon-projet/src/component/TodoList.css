@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    background-color: #8d7a5dab;
+    font-family: "Host Grotesk", serif;
+}
+
+.title{
+    
+    font-size:45px;
+    font-weight: 800;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    color: #000200;
+}
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #000000;
+  }
+
+::placeholder{
+    color: #f2eee9;
+}
+input:hover {
+    color: #f2eee9;
+    background-color: #b681665f;
+}
+
+
+button.add {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f7f6f2;
+    color: #8d7a5dab;
+    font-weight: 800;
+    font-size: 25px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  button.add:hover {
+    background-color: #000000;
+  }
+  
+  /* Conteneur de chaque tâche */
+  .todo {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .todo-task {
+    flex: 1; /* La tâche occupe tout l'espace disponible */
+    text-align: left;
+  }
+  
+  .todo-task h3 {
+    margin: 0; /* Retirer le margin du h3 */
+    font-size: 18px;
+    color: #8d7a5de2;
+  }
+  
+  .todo-actions {
+    display: flex; 
+    gap: 10px; /* Espace entre les boutons */
+  }
+  
+  button.edit {
+    background-color: #8d7a5de2; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  button.edit:hover {
+    background-color: #000000;
+  }
+  
+  button.delete {
+    background-color: #000200; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  button.delete:hover {
+    background-color: #8d7a5de2;
+  }
